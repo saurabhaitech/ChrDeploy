@@ -354,7 +354,7 @@ const Home = () => {
   const paymentRedirect = queryParams.get("paymentRedirect");
 
   useEffect(() => {
-    // dispatch(closeModal());
+    dispatch(closeModal());
     const scrollToUserPlan = queryParams.get("scrollToUserPlan");
     if (scrollToUserPlan === "true" && userPlanRef.current) {
       userPlanRef.current.scrollIntoView({ behavior: "smooth" });
