@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setChrData } from "../../store/slices/chrDataSlice";
 import { BASE_URL } from "../../utils/baseUrl";
 import axios from "axios";
+import { GoTriangleDown } from "react-icons/go";
 
 const Tooltip = ({ message }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -27,9 +28,12 @@ const Tooltip = ({ message }) => {
     >
       <IoMdInformationCircleOutline className="mb-[.5px]" size={13} />
       {isVisible && (
-        <div className="absolute left-[-140px] top-[-35px] bg-neutral03 w-[150px] text-light font-medium p-2 rounded">
+        <div className="absolute top-[-40px] left-[-215px] bg-neutral03 text-nowrap text-xs text-light font-medium p-2 rounded">
           {message}
         </div>
+      )}
+      {isVisible && (
+        <GoTriangleDown size={25} className="absolute top-[-18px] left-[-6px] text-neutral03" />
       )}
     </span>
   );
@@ -47,7 +51,7 @@ const UserReport = () => {
   const bannerContainerRef = useRef(null);
   const chrData = useSelector((state) => state.chrData);
 
-  const score = chrData.results?.credit_report_data?.cibil_score;
+  const score = chrData.results?.credit_report_data?.cibil_score || 200;
   const { banner_links, credit_report_data } = chrData.results;
   const dispatch = useDispatch();
 
@@ -135,9 +139,9 @@ const UserReport = () => {
       });
   };
   return (
-    <div className="flex flex-col justify-between h-[100%] py-6 md:py-6 md:gap-4  items-center w-[100%] w-max-[375px]">
+    <div className="flex flex-col justify-between h-[100%] py-6 md:py-4 md:gap-4  items-center w-[100%] w-max-[375px]">
       <div className="flex flex-col items-center gap-1">
-        <div className="mb-2">
+        <div className="mb-2 md:mb-0">
           <img src={CIBL} />
         </div>
         <p className="text-3xl font-bold">
@@ -166,7 +170,7 @@ const UserReport = () => {
             customSegmentStops={[200, 500, 700, 800]}
             segmentColors={["yellow", "orange", "red"]}
             // endColor="red"
-            valueTextFontSize={25}
+            valueTextFontSize={"25"}
             ringWidth={20}
             // textColor={textColor}
           />
@@ -182,7 +186,19 @@ const UserReport = () => {
         <p className="flex flex-row justify-center items-center gap-1 text-neutral05 text-xs">
           Refresh avilable on {credit_report_data?.refresh_date}
           <span className="relative ">
-            <Tooltip message="Your message here" />
+            <Tooltip
+              message={
+                credit_report_data.refresh_remaining_count === 0
+                  ? "You cannot refresh your credit score."
+                  : "You can refresh your score " +
+                    credit_report_data.refresh_remaining_count +
+                    " more time"`${
+                      credit_report_data.refresh_remaining_count > 1
+                        ? "s."
+                        : "."
+                    }`
+              }
+            />
             {/* <IoMdInformationCircleOutline className="mb-[.5px]" size={13} /> */}
           </span>
         </p>
@@ -195,31 +211,54 @@ const UserReport = () => {
           </button>
         )}
       </div>
-      <div
-        className={`flex w-[90%] overflow-x-auto min-h-[160px] ${styles.scrollContainer}`}
-        ref={bannerContainerRef}
-      >
-        <div className={`gap-4 flex`}>
-          {banners.map((banner, index) => (
-            <img
-              key={index}
-              className={`max-w-[300px] md:min-w-[320px] h-[160px] rounded-[12px] cursor-pointer`}
-              src={banner}
-              onClick={() => handleBannerClick(index)}
-            />
-          ))}
+      <div className="flex flex-col items-center w-[90%]">
+        <div
+          className={`flex w-[100%] ${
+            banners.length >= 2 ? "overflow-x-auto" : "justify-center"
+          } ${
+            banners.length >= 3
+              ? "overflow-x-auto"
+              : "md:overflow-x-none md:justify-center"
+          } min-h-[160px] ${styles.scrollContainer}`}
+          ref={bannerContainerRef}
+        >
+          <div className={`gap-4 flex`}>
+            {banners.map((banner, index) => (
+              <img
+                key={index}
+                className={`max-w-[300px] md:min-w-[320px] h-[160px] rounded-[12px] cursor-pointer`}
+                src={banner}
+                onClick={() => handleBannerClick(index)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="flex gap-2 mt-4">
-        {[0, 1, 2].map((_, index) => (
-          <div
-            key={index}
-            className={`border border-primary w-3 h-3 rounded-full cursor-pointer ${
-              index === activeIndex ? "bg-primary" : "bg-neutral"
-            }`}
-            onClick={() => handleBannerClick(index)}
-          ></div>
-        ))}
+        {banners.length >= 2 && (
+          <div className="md:hidden flex gap-2 mt-2">
+            {banners.map((_, index) => (
+              <div
+                key={index}
+                className={`border border-primary w-3 h-3 rounded-full cursor-pointer ${
+                  index === activeIndex ? "bg-primary" : "bg-neutral"
+                }`}
+                onClick={() => handleBannerClick(index)}
+              ></div>
+            ))}
+          </div>
+        )}
+        {banners.length >= 3 && (
+          <div className="hidden md:flex gap-2 mt-2">
+            {banners.map((_, index) => (
+              <div
+                key={index}
+                className={`border border-primary w-3 h-3 rounded-full cursor-pointer ${
+                  index === activeIndex ? "bg-primary" : "bg-neutral"
+                }`}
+                onClick={() => handleBannerClick(index)}
+              ></div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

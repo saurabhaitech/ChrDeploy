@@ -19,9 +19,9 @@ const ReportDashboard = () => {
   };
 
   return (
-    <div className="w-screen h-[90vh] min-h-[700px] md:min-h-[90vh] bg-secondary02 flex flex-col justify-center mt-[10vh]">
+    <div className="w-screen h-[90vh] min-h-[750px] md:min-h-[90vh] bg-secondary02 flex flex-col justify-center mt-[10vh]">
       <Navbar />
-      <div className="flex flex-col justify-center items-center bg-white rounded-[16px] w-[90%]  mx-auto md:w-[60%] md:max-w-[790px] h-[95%] max-h-[650px]">
+      <div className="flex flex-col justify-center items-center bg-white rounded-[16px] w-[90%]  mx-auto md:w-[60%] md:max-w-[790px] h-[95%] max-h-[700px]">
         <UserReport />
       </div>
       <div className="md:absolute md:top-[15vh] md:right-[12%] mx-auto md:mx-0 mt-[5%] md:mt-0">
