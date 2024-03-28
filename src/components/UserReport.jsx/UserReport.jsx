@@ -16,6 +16,7 @@ import { setChrData } from "../../store/slices/chrDataSlice";
 import { BASE_URL } from "../../utils/baseUrl";
 import axios from "axios";
 import { GoTriangleDown } from "react-icons/go";
+import { redirect, useNavigate } from "react-router-dom";
 
 const coodinates = [
   { points: 30, xcor: "46", ycor: "585" },
@@ -119,8 +120,10 @@ const UserReport = () => {
   const chrData = useSelector((state) => state.chrData);
   const score = chrData.results?.credit_report_data?.cibil_score || "NH"; // <=---------
   const [pointerColor, setPointerColor] = useState("#FC6265");
-  const { banner_links, credit_report_data } = chrData.results;
+  const banner_links = chrData?.results?.banner_links;
+  const credit_report_data = chrData?.results?.credit_report_data;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [currScore, setCurrScore] = useState(300);
   const [currXCor, setCurrXCor] = useState("46");
@@ -163,7 +166,7 @@ const UserReport = () => {
         bannerContainerRef.current.removeEventListener("scroll", handleScroll);
       }
     };
-  }, [banner_links.length]);
+  }, [banner_links?.length]);
 
   const handleBannerClick = (index) => {
     setActiveIndex(index);
@@ -171,7 +174,7 @@ const UserReport = () => {
       let scrollLeft = 0;
       if (index === 0) {
         scrollLeft = 0;
-      } else if (index === banner_links.length - 1) {
+      } else if (index === banner_links?.length - 1) {
         scrollLeft = bannerContainerRef.current.scrollWidth;
       } else {
         const direction = index > activeIndex ? 1 : -1;
@@ -183,6 +186,7 @@ const UserReport = () => {
         left: scrollLeft,
       });
     }
+    window.open(banner_links[index].link);
   };
 
   const handleDownloadReport = () => {
@@ -390,12 +394,12 @@ const UserReport = () => {
           <span className="relative ">
             <Tooltip
               message={
-                credit_report_data.refresh_remaining_count === 0
+                credit_report_data?.refresh_remaining_count === 0
                   ? "You cannot refresh your credit score."
                   : "You can refresh your score " +
-                    credit_report_data.refresh_remaining_count +
-                    " more time"`${
-                      credit_report_data.refresh_remaining_count > 1
+                    credit_report_data?.refresh_remaining_count +
+                    " more time" + `${
+                      credit_report_data?.refresh_remaining_count > 1
                         ? "s."
                         : "."
                     }`
@@ -416,16 +420,16 @@ const UserReport = () => {
       <div className="flex flex-col items-center w-[90%]">
         <div
           className={`flex w-[100%] ${
-            banner_links.length >= 2 ? "overflow-x-auto" : "justify-center"
+            banner_links?.length >= 2 ? "overflow-x-auto" : "justify-center"
           } ${
-            banner_links.length >= 3
+            banner_links?.length >= 3
               ? "overflow-x-auto"
               : "md:overflow-x-none md:justify-center"
           } min-h-[160px] ${styles.scrollContainer}`}
           ref={bannerContainerRef}
         >
           <div className={`gap-4 flex`}>
-            {banner_links.map((banner, index) => (
+            {banner_links?.map((banner, index) => (
               <img
                 key={index}
                 className={`max-w-[300px] md:min-w-[320px] h-[160px] rounded-[12px] cursor-pointer`}
@@ -435,9 +439,9 @@ const UserReport = () => {
             ))}
           </div>
         </div>
-        {banner_links.length >= 2 && (
+        {banner_links?.length >= 2 && (
           <div className="md:hidden flex gap-2 mt-2">
-            {banner_links.map((_, index) => (
+            {banner_links?.map((_, index) => (
               <div
                 key={index}
                 className={`border border-primary w-3 h-3 rounded-full cursor-pointer ${
@@ -448,9 +452,9 @@ const UserReport = () => {
             ))}
           </div>
         )}
-        {banner_links.length >= 3 && (
+        {banner_links?.length >= 3 && (
           <div className="hidden md:flex gap-2 mt-2">
-            {banner_links.map((_, index) => (
+            {banner_links?.map((_, index) => (
               <div
                 key={index}
                 className={`border border-primary w-3 h-3 rounded-full cursor-pointer ${

@@ -178,6 +178,7 @@ const SelectPlan = () => {
       .then((res) => {
         const { order_id, redirect_url } = res.data.results;
         localStorage.setItem("order", order_id);
+
         window.location.href = redirect_url;
         setLoading(false);
       })

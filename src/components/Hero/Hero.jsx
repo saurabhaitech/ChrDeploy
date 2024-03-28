@@ -5,16 +5,18 @@ import loanOfferImg from "../../assets/loanOfferImg.png";
 import guidanceImg from "../../assets/guidanceImg.png";
 import cibilImg from "../../assets/cibilImg.png";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../../store/slices/modalSlice";
+import { closeModal, openModal } from "../../store/slices/modalSlice";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../store/slices/userSlice";
 import { clearChrData } from "../../store/slices/chrDataSlice";
+import { CgSpinner } from "react-icons/cg";
 
-const Hero = ({ userPlanRef }) => {
+const Hero = ({ userPlanRef, loginLoad }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const authToken = localStorage.getItem("authToken");
   const userData = useSelector((state) => state.user);
+  const chrData = useSelector((state) => state.chrData)
   const handleLogin = () => {
     if (userData.isLoggedIn) {
       if (userData.pan_number) {
@@ -34,12 +36,27 @@ const Hero = ({ userPlanRef }) => {
   };
 
   const scrollHandler = () => {
-    //userPlanRef.current.scrollIntoView({ behavior: "smooth"});
-    window.scrollTo({
-      top: userPlanRef.current.offsetTop - 70,
-      behavior: 'smooth',
-    });
-
+    
+    if(!!userData.isLoggedIn){
+      const credit_report_data = chrData.results.credit_report_data;
+      if(!userData.isUserData){
+        dispatch(openModal("userForm"));
+      } else if (credit_report_data === null) {
+        dispatch(closeModal());
+        navigate("/selectplan");
+      } else if (credit_report_data.user_state === "normal") {
+        navigate("/reportdashboard");
+      } else if (credit_report_data.user_state === "repeat") {
+        navigate("/repeat");
+      } else if (credit_report_data.user_state === "ntc") {
+        navigate("/ntc-user");
+      }
+    }else{
+      window.scrollTo({
+        top: userPlanRef.current.offsetTop - 70,
+        behavior: 'smooth',
+      });
+    }
   }
   return (
     <div className="w-full  px-4 md:px-10 xl:px-24 pb-10 md:pb-0  mt-10 mx-auto">
@@ -62,10 +79,11 @@ const Hero = ({ userPlanRef }) => {
             </button>
             {!userData.isLoggedIn ? (
               <button
+                disabled={loginLoad}
                 onClick={handleLogin}
                 className="w-[150px] h-[48px] xl:w-[195px] xl:h-[60px] border border-primary text-primary rounded-lg text-base leading-7 font-semibold"
               >
-                Login
+               {loginLoad ? <CgSpinner className="animate-spin mx-auto" size={20} /> : "Login"}
               </button>
             ) : (
               <button

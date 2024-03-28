@@ -91,7 +91,7 @@ const UserDetail = () => {
     }
 
     if (!/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(formData.pan_number)) {
-      setErrorMsg("Invalid PAN number (Valid: 'AAAA1234A')");
+      setErrorMsg("Invalid PAN number (Valid: 'AAAAA1234A')");
       setIsError(true);
       return;
     }

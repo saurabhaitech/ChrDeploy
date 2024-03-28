@@ -354,6 +354,7 @@ const Home = () => {
   const userData = useSelector((state) => state.user);
   const queryParams = new URLSearchParams(location.search);
   const paymentRedirect = queryParams.get("paymentRedirect");
+  const [loginLoad, setLoginLoad] = useState(false);
 
   useEffect(() => {
     dispatch(closeModal());
@@ -373,7 +374,7 @@ const Home = () => {
     const auth_token = localStorage.getItem("authToken");
     if (!!auth_token && paymentRedirect !== "true") {
       console.log("checking user data");
-      //getUserData();
+      getUserData();
     }
   }, []);
 
@@ -388,6 +389,7 @@ const Home = () => {
       console.log("Data already saved");
       return;
     }
+    setLoginLoad(true);
     let config = {
       method: "get",
       maxBodyLength: Infinity,
@@ -427,22 +429,16 @@ const Home = () => {
             name.length <= 2
           ) {
             dispatch(openModal("userForm"));
-          } else if (credit_report_data === null) {
-            dispatch(closeModal());
-            navigate("/selectplan");
-          } else if (credit_report_data.user_state === "normal") {
-            navigate("/reportdashboard");
-          } else if (credit_report_data.user_state === "repeat") {
-            navigate("/repeat");
-          } else if (credit_report_data.user_state === "ntc") {
-            navigate("/ntc-user");
           }
+          setLoginLoad(false);
         })
         .catch((error) => {
           console.log(error);
+          setLoginLoad(false);
         });
     } catch (error) {
       console.log(error);
+      setLoginLoad(false);
     }
   };
 
@@ -451,7 +447,7 @@ const Home = () => {
       <Navbar />
       {/* <div className="bg-light px-4 md:px-24"> */}
       <div className="bg-light ">
-        <Hero userPlanRef={userPlanRef} />
+        <Hero userPlanRef={userPlanRef} loginLoad={loginLoad}/>
 
         {isOpen && (
           <div>

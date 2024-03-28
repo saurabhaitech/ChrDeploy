@@ -24,6 +24,7 @@ const ReportDashboard = () => {
       <div className="flex flex-col justify-center items-center bg-white rounded-[16px] w-[90%]  mx-auto md:w-[60%] md:max-w-[790px] h-[95%] max-h-[700px]">
         <UserReport />
       </div>
+
       <div className="md:absolute md:top-[15vh] md:right-[12%] mx-auto md:mx-0 mt-[5%] md:mt-0">
         <button
           onClick={handleLogout}
