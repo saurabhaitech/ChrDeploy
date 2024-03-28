@@ -19,44 +19,44 @@ import { GoTriangleDown } from "react-icons/go";
 
 const coodinates = [
   { points: 30, xcor: "46", ycor: "585" },
-  { points: 31, xcor: "46", ycor: "585" },
-  { points: 32, xcor: "46", ycor: "585" },
-  { points: 33, xcor: "46", ycor: "585" },
-  { points: 34, xcor: "82", ycor: "420" },
-  { points: 35, xcor: "82", ycor: "420" },
-  { points: 36, xcor: "82", ycor: "420" },
-  { points: 37, xcor: "82", ycor: "420" }, //mid of mids
-  { points: 38, xcor: "82", ycor: "420" },
-  { points: 39, xcor: "82", ycor: "420" },
-  { points: 40, xcor: "82", ycor: "420" },
-  { points: 41, xcor: "187", ycor: "250" },
-  { points: 42, xcor: "187", ycor: "250" },
-  { points: 43, xcor: "187", ycor: "250" },
-  { points: 44, xcor: "187", ycor: "250" }, //mids
-  { points: 45, xcor: "187", ycor: "250" }, //mids
-  { points: 46, xcor: "187", ycor: "250" },
-  { points: 47, xcor: "187", ycor: "250" },
-  { points: 48, xcor: "187", ycor: "250" },
-  { points: 49, xcor: "187", ycor: "250" },
-  { points: 50, xcor: "187", ycor: "250" },
-  { points: 51, xcor: "187", ycor: "250" },
-  { points: 52, xcor: "187", ycor: "250" },
-  { points: 53, xcor: "502", ycor: "82" },
-  { points: 54, xcor: "502", ycor: "82" },
-  { points: 55, xcor: "502", ycor: "82" },
-  { points: 56, xcor: "502", ycor: "82" },
-  { points: 57, xcor: "502", ycor: "82" },
-  { points: 58, xcor: "502", ycor: "82" },
+  { points: 31, xcor: "47", ycor: "570" },
+  { points: 32, xcor: "49", ycor: "550" },
+  { points: 33, xcor: "52", ycor: "530" },
+  { points: 34, xcor: "55", ycor: "510" },
+  { points: 35, xcor: "59", ycor: "490" },
+  { points: 36, xcor: "65", ycor: "470" },
+  { points: 37, xcor: "70", ycor: "450" }, //mid of mids
+  { points: 38, xcor: "78", ycor: "430" },
+  { points: 39, xcor: "84", ycor: "413" },
+  { points: 40, xcor: "91", ycor: "397" },
+  { points: 41, xcor: "107", ycor: "364" },
+  { points: 42, xcor: "118", ycor: "344" },
+  { points: 43, xcor: "135", ycor: "317" },
+  { points: 44, xcor: "147", ycor: "300" }, //mids
+  { points: 45, xcor: "158", ycor: "284" }, //mids
+  { points: 46, xcor: "176", ycor: "262" },
+  { points: 47, xcor: "197", ycor: "240" },
+  { points: 48, xcor: "218", ycor: "219" },
+  { points: 49, xcor: "241", ycor: "199" },
+  { points: 50, xcor: "274", ycor: "174" },
+  { points: 51, xcor: "306", ycor: "153" },
+  { points: 52, xcor: "343", ycor: "133" },
+  { points: 53, xcor: "374", ycor: "118" },
+  { points: 54, xcor: "400", ycor: "108" },
+  { points: 55, xcor: "435", ycor: "97" },
+  { points: 56, xcor: "447", ycor: "93" },
+  { points: 57, xcor: "465", ycor: "89" },
+  { points: 58, xcor: "482", ycor: "85" },
   { points: 59, xcor: "502", ycor: "82" }, // range Bad ends here
   { points: 60, xcor: "563", ycor: "76" }, // range Average start here
-  { points: 61, xcor: "563", ycor: "76" },
-  { points: 62, xcor: "563", ycor: "76" },
-  { points: 63, xcor: "563", ycor: "76" },
-  { points: 64, xcor: "563", ycor: "76" },
-  { points: 65, xcor: "735", ycor: "97" },
-  { points: 66, xcor: "735", ycor: "97" },
-  { points: 67, xcor: "735", ycor: "97" },
-  { points: 68, xcor: "735", ycor: "97" },
+  { points: 61, xcor: "583", ycor: "76" },
+  { points: 62, xcor: "603", ycor: "76" },
+  { points: 63, xcor: "623", ycor: "77" }, //
+  { points: 64, xcor: "643", ycor: "78" },
+  { points: 65, xcor: "663", ycor: "81" },
+  { points: 66, xcor: "685", ycor: "84" }, //
+  { points: 67, xcor: "705", ycor: "89" },
+  { points: 68, xcor: "721", ycor: "93" },
   { points: 69, xcor: "735", ycor: "97" }, // range Average ends here
   { points: 70, xcor: "793", ycor: "118" }, // range Good Start here
   { points: 71, xcor: "828", ycor: "133" },
@@ -117,8 +117,8 @@ const UserReport = () => {
   ];
   const bannerContainerRef = useRef(null);
   const chrData = useSelector((state) => state.chrData);
-
-  const score = chrData.results?.credit_report_data?.cibil_score || 300;
+  const score = chrData.results?.credit_report_data?.cibil_score || "NH"; // <=---------
+  const [pointerColor, setPointerColor] = useState("#FC6265");
   const { banner_links, credit_report_data } = chrData.results;
   const dispatch = useDispatch();
 
@@ -186,10 +186,15 @@ const UserReport = () => {
   };
 
   const handleDownloadReport = () => {
+    // for dev download report
     window.open(
       "https://devapi.stashfin.com/v2/api/cibil_report/6666",
       "_blank"
     );
+
+    // for prod download report
+    // const reportUrl = credit_report_data.report_url;
+    // window.open(reportUrl, "_blank");
   };
 
   const handleRefresh = () => {
@@ -218,14 +223,15 @@ const UserReport = () => {
       // Increment score by 10
       setCurrScore((prevScore) => {
         var newScore = prevScore + 10;
-        if (newScore > 900 || newScore >= score) {
-          newScore = score
+        if (newScore > 900 || newScore >= score || score === "NH") {
+          newScore = score;
           clearInterval(intervalId); // Stop the interval if score exceeds 900
           return newScore; // Return previous score without updating
+        } else {
+          return newScore;
         }
-        return newScore;
       });
-    }, 50);
+    }, 25);
 
     return () => {
       clearInterval(intervalId); // Cleanup: clear the interval when component unmounts
@@ -236,26 +242,48 @@ const UserReport = () => {
     if (currScore >= 300 && currScore <= 900) {
       scoreCoor(currScore);
     }
+
+    if( currScore === "NH" ){
+      setCurrXCor("46");
+      setCurrYCor("585");
+    }
+
+    if (currScore >= 300 && currScore <= 600) {
+      setPointerColor("#FC6265");
+    } else if (currScore > 600 && currScore <= 700) {
+      setPointerColor("#FD8645");
+    } else if (currScore > 700 && currScore <= 750) {
+      setPointerColor("#FED23E");
+    } else if (currScore > 750 && currScore <= 800) {
+      setPointerColor("#1A94FC");
+    } else if (currScore > 800 && currScore <= 900) {
+      setPointerColor("#47DA95");
+    } else{
+      setPointerColor("#999999");
+    }
   }, [currScore]);
 
   const scoreCoor = (scoretoMap) => {
     console.log(scoretoMap);
     var point;
 
-    if (scoretoMap < 300 || scoretoMap > 900){
+    if (scoretoMap < 300 || scoretoMap > 900 || scoretoMap > score) {
       return;
     }
 
     if (scoretoMap === 300 || scoretoMap === 900) {
       point = (scoretoMap / 10).toFixed(0);
-    } else if (scoretoMap % 10 === 0) {
-      point = ((scoretoMap - 1) / 10).toFixed(0);
     } else {
       point = (scoretoMap / 10).toFixed(0);
     }
 
-    if(scoretoMap === 750 || scoretoMap === 600 || scoretoMap === 700 || scoretoMap === 800){
-      point = scoretoMap/10 - 1;
+    if (
+      scoretoMap === 750 ||
+      scoretoMap === 600 ||
+      scoretoMap === 700 ||
+      scoretoMap === 800
+    ) {
+      point = scoretoMap / 10 - 1;
       console.log(point);
     }
 
@@ -287,9 +315,7 @@ const UserReport = () => {
           <img src={Progress} />
         </div> */}
         <div
-          className={`${styles.card} ${styles.ml} ${
-            loadRef && styles.loaded
-          }`}
+          className={`${styles.card} ${styles.ml} ${loadRef && styles.loaded}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -298,7 +324,7 @@ const UserReport = () => {
           >
             <defs>
               <style>{`
-            .a{isolation:isolate;}.b{fill:#fed23e;}.c{fill:#fc6265;}.d{fill:#fd8645;}.e{fill:#47da95;}.f{fill:#1a94fc;}.g,.h{fill:#899093;}.h{font-size:48px;font-family:Nunito-Bold, Nunito;font-weight:700;}.i{opacity:0.12;mix-blend-mode:multiply;}.j{fill:#fff;}.k{fill:none;stroke:#47da95;stroke-miterlimit:10;stroke-width:20px;}
+            .a{isolation:isolate;}.b{fill:${currScore === "NH" ? "#cfcfcf" : "#fed23e"};}.c{fill:${currScore === "NH" ? "#9B9B9B" : "#fc6265"};}.d{fill:${currScore === "NH" ? "#A8A8A8" : "#fd8645"};}.e{fill:${currScore === "NH" ? "#ADADAD" : "#47da95"};}.f{fill:${currScore === "NH" ? "#999999" : "#1a94fc"};}.g,.h{fill:#899093;}.h{font-size:48px;font-family:Nunito-Bold, Nunito;font-weight:700;}.i{opacity:0.12;mix-blend-mode:multiply;}.j{fill:#fff;}.k{fill:none;stroke:${pointerColor};stroke-miterlimit:10;stroke-width:20px;}
           `}</style>
             </defs>
             <g className="a">
@@ -326,17 +352,17 @@ const UserReport = () => {
                 className="f"
                 d="M1061.28,336.82l.16-.08a550.43,550.43,0,0,0-81.33-107l-.25.27A12.49,12.49,0,0,0,963.56,249a530.14,530.14,0,0,1,75.38,99.26l.21-.1a12.49,12.49,0,1,0,22.13-11.33Z"
               />
-              <text className="h" transform="translate(1080 664.09)">
+              <text className={"h"} transform="translate(1080 664.09)">
                 900
               </text>
-              <text className="h" transform="translate(0 664.09)">
+              <text className={"h"} transform="translate(0 664.09)">
                 300
               </text>
               <circle className="j" cx={currXCor} cy={currYCor} r="23" />
               {/* *********        */}
               <circle className="k" cx={currXCor} cy={currYCor} r="23" />
               {/* *********       */}
-              <text className={styles.score} x="50%" y="75%">
+              <text className={styles.score} x={currScore === "NH" ? "52%" :"50%"} y="75%">
                 {currScore}
               </text>
               <text className={styles.range} x="660" y="98%">
@@ -344,8 +370,11 @@ const UserReport = () => {
               </text>
             </g>
           </svg>
-          <p className={`-mt-5 mx-auto text-center text-sm font-semibold ${credit_report_data?.cibil_state_text_color ? "text-[" + credit_report_data?.cibil_state_text_color + "]" : "text-[#FC6265]" }`}>
-            {credit_report_data?.cibil_state_text || "Poor"}
+          <p
+            className={`-mt-5 mx-auto text-center text-sm font-semibold`}
+            style={{ color: pointerColor }}
+          >
+            {currScore === "NH" ? "No History" : credit_report_data?.cibil_state_text || "Poor"}
           </p>
         </div>
         <div className="">
