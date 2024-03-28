@@ -29,7 +29,7 @@ const Links = [
 ];
 
 const Navbar = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   // useEffect(() => {

@@ -5,3 +5,99 @@
 .scrollContainer::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
+
+body {
+  background-color: #eee;
+  font-family: 'Nunito', sans-serif;
+}
+
+.card{
+  height: 120px;
+  width: 260px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 10px auto;
+  max-width: 200px;
+  padding: 0px;
+  text-align: center;
+	opacity: 0;
+	transform: scale(.95);
+	transition: all .5s ease-in-out;
+}
+.card.loaded {
+	opacity: 1;
+	transform: scale(1.2);
+}
+.card:hover {
+	cursor: pointer;
+}
+
+.card h2 {
+  color: #223038;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.card.ml svg {
+  opacity: 0;
+	transform: translateY(5%);
+	-webkit-transform: translateY(5%);
+	transform-origin: bottom;
+  transition: all 1s ease-in-out;
+}
+
+.card.ml.loaded svg {
+  opacity: 1;
+	transform: translateY(0);
+	-webkit-transform: translateY(0);
+}
+
+.card.ml svg text,
+.card.ml svg .g {
+  opacity: 0;
+  transition: all .5s ease-in-out;
+}
+
+.card.ml svg:hover text,
+.card.ml svg:hover .g {
+  opacity: 1;
+}
+
+.card svg g text.score {
+  font-size: 225px;
+  transform: translateX(-18%) translateY(10%);
+	opacity: 0;
+  font-weight: bold;
+  fill: #223038;
+	transition: all 1s ease-in-out 1s;
+}
+.card.loaded svg g text.score {
+	opacity: 1;
+	transform: translateX(-18%) translateY(0);
+}
+
+.card svg g text.range {
+  font-size: 70px;
+  transform: translateX(-13%) translateY(10%);
+	opacity: 0;
+  font-weight: bold;
+  fill: #223038;
+	transition: all 1s ease-in-out 1.5s;
+}
+.card.loaded svg g text.range {
+	opacity: 1;
+  transform: translateX(-13%) translateY(0);
+}
+
+.card svg g text.improve {
+  font-size: 48px;
+  transform: translateX(-5%) translateY(10%);
+	opacity: 0;
+  vertical-align: center;
+  fill: #47da95;
+	transition: all 1s ease-in-out .5s;
+}
+.card.loaded svg g text.improve {
+  opacity: 1;
+  transform: translateX(-5%) translateY(0);
+}

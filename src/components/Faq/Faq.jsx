@@ -26,7 +26,7 @@ const QuesList = [
 
 const Faq = () => {
   return (
-    <div className="flex flex-col md:flex-row my-20 gap-6 px-4 md:px-10 xl:px-32">
+    <div className="flex flex-col md:flex-row py-20 gap-6 px-4 md:px-10 xl:px-32">
       <div className="md:w-[20%] text-secondary text-center font-bold text-3xl">
         Frequently Asked Questions
       </div>

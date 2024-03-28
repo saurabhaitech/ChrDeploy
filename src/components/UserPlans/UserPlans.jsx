@@ -4,13 +4,14 @@ import greenCheck from "../../assets/greenCheck.png";
 import redCheck from "../../assets/redCheck.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../store/slices/modalSlice";
 
 export const PlanCards = ({ plansData }) => {
   const { plans = [], products = [], features = [] } = plansData.results || {};
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user);
   const getFeaturesList = (product) => {
     return product.feature_ids.map((featureId) =>
       features.find((featureItem) => featureItem.id === featureId)
@@ -41,10 +42,10 @@ export const PlanCards = ({ plansData }) => {
 
   const handlePlanClick = (planItem) => {
     const authToken = localStorage.getItem("authToken");
-    if (authToken === null) {
-      dispatch(openModal("mobile"));
-    } else {
+    if (!!userData.isLoggedIn) {
       getPaymentLink(planItem, authToken);
+    } else {
+      dispatch(openModal("mobile"));
     }
   };
   return (
@@ -54,7 +55,7 @@ export const PlanCards = ({ plansData }) => {
           <React.Fragment key={index}>
             <div
               className={`hidden md:block relative
-               h-[633px] md:w-[180px] xl:w-[200px]  rounded-xl ${
+               h-[580px] md:w-[180px] xl:w-[200px]  rounded-xl ${
                  planItem.recommended === true
                    ? "bg-gradient-to-b from-[#151573] to-[#6E6EA9]"
                    : "bg-light"
@@ -110,7 +111,7 @@ export const PlanCards = ({ plansData }) => {
                 </div>
                 <button
                   onClick={() => handlePlanClick(planItem)}
-                  className="mt-16 w-[146px] h-[42px] border bg-light border-primary text-primary rounded-lg text-base leading-7 font-semibold"
+                  className="mt-4 w-[146px] h-[42px] border bg-light border-primary text-primary rounded-lg text-base leading-7 font-semibold"
                 >
                   Choose Plan
                 </button>

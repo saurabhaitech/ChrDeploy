@@ -159,6 +159,7 @@ const UserDetail = () => {
               maxLength={30}
               minLength={2}
               required
+              autoFocus={true}
             />
           </div>
           <div className="w-full h-[52px] border-neutral10 rounded-[10px] border-2 flex flex-col justify-center">

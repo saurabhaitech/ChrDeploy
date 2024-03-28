@@ -32,6 +32,15 @@ const Hero = ({ userPlanRef }) => {
     dispatch(logoutUser());
     dispatch(clearChrData());
   };
+
+  const scrollHandler = () => {
+    //userPlanRef.current.scrollIntoView({ behavior: "smooth"});
+    window.scrollTo({
+      top: userPlanRef.current.offsetTop - 70,
+      behavior: 'smooth',
+    });
+
+  }
   return (
     <div className="w-full  px-4 md:px-10 xl:px-24 pb-10 md:pb-0  mt-10 mx-auto">
       <div className="flex justify-between">
@@ -46,9 +55,7 @@ const Hero = ({ userPlanRef }) => {
           </div>
           <div className="flex justify-center mt-10 md:mt-0 md:flex-col gap-6 md:gap-4 xl:gap-8">
             <button
-              onClick={() =>
-                userPlanRef.current.scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={scrollHandler}
               className="w-[150px] h-[48px] xl:w-[195px] xl:h-[60px] rounded-lg text-base leading-7 font-semibold bg-primary text-white"
             >
               Check Now

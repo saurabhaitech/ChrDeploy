@@ -115,6 +115,7 @@ const OtpModal = () => {
           </p>
           <div className="w-full flex flex-col items-center justify-center">
             <OtpInput
+              shouldAutoFocus={true}
               value={otp}
               onChange={(otpValue) => {
                 setError("");
@@ -150,7 +151,7 @@ const OtpModal = () => {
               Resend Code
             </button>
           ) : (
-            <p className="pb-4">Resend code in {resendTimeout} seconds</p>
+            <div className="flex items-center justify-center gap-[5px] pb-4 w-full text-sm font-medium">Resend code in <p className="text-secondary w-[40px]">{resendTimeout < 10 ? "00:0"+resendTimeout : "00:"+resendTimeout}</p></div>
           )}
           <button
             disabled={loading}
@@ -221,6 +222,7 @@ const MobileModal = () => {
         </p>
         <div className="w-full text-center">
           <input
+            autoFocus={true}
             maxLength={10}
             value={phoneNumber}
             onChange={(e) => {
@@ -357,7 +359,10 @@ const Home = () => {
     dispatch(closeModal());
     const scrollToUserPlan = queryParams.get("scrollToUserPlan");
     if (scrollToUserPlan === "true" && userPlanRef.current) {
-      userPlanRef.current.scrollIntoView({ behavior: "smooth" });
+      window.scrollTo({
+        top: userPlanRef.current.offsetTop - 70,
+        behavior: 'smooth',
+      });
     }
     if (paymentRedirect === "true") {
       dispatch(openModal("paymentCheck"));
@@ -368,7 +373,7 @@ const Home = () => {
     const auth_token = localStorage.getItem("authToken");
     if (!!auth_token && paymentRedirect !== "true") {
       console.log("checking user data");
-      getUserData();
+      //getUserData();
     }
   }, []);
 
